@@ -1,9 +1,6 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 from .forms import CreateUserForm
-from django.shortcuts import redirect
-from django.views.generic.edit import FormView
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 
@@ -12,15 +9,15 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'register/register.html',{
-                'form': form
-            })
+            user = form.save()
+            login(request, user)
+            return redirect('/')
     else:
         form = CreateUserForm()
-        return render(request, 'register/register.html', {
-            'form': form
-        })
+
+    return render(request, 'register/register.html', {
+        'form': form
+    })
+
+
         

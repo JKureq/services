@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,40 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Log in here</h1>
-    <p>form here</p>
-    <div>
-        <p>If u dont have account register <a href="{% url 'register' %}">here</a></p>
-    </div>
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }} </p>
+        <a href="{% url 'index' %}">Go back to main page</a>
+        {% else %}
+
+        <h1>Log in here</h1>
+
+        {% if fail %}
+            <p>Your username and password not matching</p>
+        {% endif %}
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.username.label }}
+                    {{ form.username }}
+                    {{ form.password1.label }}
+                    {{ form.password1 }}
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        {% if user.is_authenticated %}
+            <p>Welcome, You are logged in as {{ user.username }}</p>
+        {% else %}
+            <a href="{% provider_login_url 'google'%}?next=/">Login With Google</a>
+        {% endif %}
+            <div>
+                <p>If u dont have account register <a href="{% url 'register' %}">here</a></p>
+            </div>
+        <footer>
+            <a href="{% url 'index' %}">Go back to main page</a>
+        </footer>
+    {% endif %}
+    
+    
+    
 </body>
 </html>
