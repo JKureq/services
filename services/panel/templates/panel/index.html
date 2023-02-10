@@ -7,15 +7,18 @@
     <title>Welcome</title>
 </head>
 <body>
+    
+    
+    {% if user.is_authenticated %}
     <h1>Welcome {{ user.username }}</h1>
     <button><a href="{% url 'panel' %}">Go to your panel</a></button>
-    {% if user.is_authenticated %}
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
-
     {% else %}
+    <h1>Welcome</h1>
+    <p>Login to access your panel</p>
     <button><a href="{% url 'login' %}">Log In</a></button>
     {% endif %}
 </body>
