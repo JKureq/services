@@ -1,0 +1,14 @@
+<h1>Your ingredients</h1>
+{% for ingredient in ingredients %}
+<p>{{ ingredient.name }}</p>
+<form method="POST" action="ingredients/delete">
+    {% csrf_token %}
+    <button>Delete</button>
+</form>
+{% endfor %}
+
+<form method="POST" action="ingredients/add">
+    {% csrf_token %}
+    {{ form }}
+    <button>Add</button>
+</form>

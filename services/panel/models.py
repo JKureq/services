@@ -2,14 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=100)
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
-
+    duration = models.IntegerField(null=True)
+    ingredients = models.ManyToManyField(Ingredient, related_name='products', blank=True)
 
 class Service(models.Model):
     name = models.CharField(max_length=100)
-    price = models.IntegerField()
     date = models.DateField()
-    products = models.ManyToManyField(Product, related_name='service', blank=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='services')
