@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import ProductForm, IngredientForm
 from django.views.generic import ListView
 from .models import Ingredient, Product, Service
-from django.views.generic.edit import FormView, CreateView, DeleteView
+from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -42,9 +42,41 @@ class IngredientsDeleteView(DeleteView):
     model = Ingredient
     success_url = reverse_lazy('ingredients')
 
+
+class IngredientsUpdateView(UpdateView):
+    model = Ingredient
+    fields = '__all__'
+    success_url = reverse_lazy('ingredients')
+    template_name = 'panel/ingredients_update.html'
+    
+
 class ProductsView(ListView):
     template_name = 'panel/products.html'
     model = Product
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ProductForm()
+        return context
+
+
+class ProductsAddView(CreateView):
+    model = Product
+    fields = '__all__'
+    success_url = reverse_lazy('products')
+
+
+class ProductsDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('products')
+
+
+class ProductsUpdateView(UpdateView):
+    model = Product
+    fields = '__all__'
+    success_url = reverse_lazy('products')
+    template_name = 'panel/products_update.html'
 
 
 class ServicesView(ListView):

@@ -1,0 +1,15 @@
+<h1>Your products</h1>
+{% for product in products %}
+<p>{{ product.name }} {{ product.price }} {{ product.duration }} {{ product.ingredients }}</p>
+<form method="POST" action="{% url 'products_delete' product.id %}">
+    {% csrf_token %}
+    <button>Delete</button>
+</form>
+<button><a href="{% url 'products_update' product.id %}">Update</a></button>  
+{% endfor %}
+
+<form method="POST" action="products/add">
+    {% csrf_token %}
+    {{ form }}
+    <button>Add</button>
+</form>

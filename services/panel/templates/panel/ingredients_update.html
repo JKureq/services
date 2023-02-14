@@ -1,0 +1,5 @@
+<form method="POST" action="{% url 'ingredients_update' ingredient.id %}">
+    {% csrf_token %}
+    {{ form }}
+    <button>Update</button>
+</form>
