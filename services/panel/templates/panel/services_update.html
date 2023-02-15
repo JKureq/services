@@ -1,0 +1,5 @@
+<form method="POST" action="{% url 'services_update' service.id %}">
+    {% csrf_token %}
+    {{ form }}
+    <button>Update</button>
+</form>

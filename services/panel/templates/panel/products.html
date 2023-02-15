@@ -1,15 +1,33 @@
 <h1>Your products</h1>
+<table> 
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Duration</th>
+        <th>Ingredients</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>     
 {% for product in products %}
-<p>{{ product.name }} {{ product.price }} {{ product.duration }} {{ product.ingredients }}</p>
-<form method="POST" action="{% url 'products_delete' product.id %}">
+<tr>
+    <td>{{ product.name }}</td>
+    <td>{{ product.price }}</td>
+    <td>{{ product.duration }}</td>
+    <td>{% for ingredient in product.ingredients.all %}
+    {{ ingredient.name }}
+    {% endfor %}</td>
+    <td><form method="POST" action="{% url 'products_delete' product.id %}">
     {% csrf_token %}
     <button>Delete</button>
-</form>
-<button><a href="{% url 'products_update' product.id %}">Update</a></button>  
+    </form></td>
+    <td><button><a href="{% url 'products_update' product.id %}">Update</a></button> </td>
+</tr>
 {% endfor %}
+</table>
 
-<form method="POST" action="products/add">
+<form method="POST" action="{% url 'products_add' %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <button>Add</button>
 </form>
+

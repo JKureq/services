@@ -1,0 +1,29 @@
+<h1>Your services</h1>
+<table> 
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Product</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>     
+{% for service in services %}
+<tr>
+    <td>{{ service.name }}</td>
+    <td>{{ service.date }}</td>
+    <td>{{ service.product }}</td>
+    
+    <td><form method="POST" action="{% url 'services_delete' service.id %}">
+    {% csrf_token %}
+    <button>Delete</button>
+    </form></td>
+    <td><button><a href="{% url 'services_update' service.id %}">Update</a></button> </td>
+</tr>
+{% endfor %}
+</table>
+
+<form method="POST" action="services/add">
+    {% csrf_token %}
+    {{ form }}
+    <button>Add</button>
+</form>
