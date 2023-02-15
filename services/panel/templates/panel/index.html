@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-</head>
-<body>
-    
-    
-    {% if user.is_authenticated %}
+{% extends 'base.html' %}
+{% block title %}
+Welcome
+{% endblock%}
+{% block navbar %}
+{% include 'panel/includes/navbar.html' %}
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
     <h1>Welcome {{ user.username }}</h1>
     <button><a href="{% url 'panel' %}">Go to your panel</a></button>
     <form method="POST">
@@ -20,6 +17,6 @@
     <h1>Welcome</h1>
     <p>Login to access your panel</p>
     <button><a href="{% url 'login' %}">Log In</a></button>
-    {% endif %}
-</body>
-</html>
+{% endif %}
+{% endblock %}
+

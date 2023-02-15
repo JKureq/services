@@ -1,5 +1,17 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Update ingredient
+{% endblock %}
+{% block navbar %}
+{% include 'panel/includes/navbar.html' %}
+{% endblock %}
+{% block content %}
 <form method="POST" action="{% url 'ingredients_update' ingredient.id %}">
     {% csrf_token %}
     {{ form }}
     <button>Update</button>
 </form>
+{% endblock %}
+

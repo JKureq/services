@@ -1,5 +1,17 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Update service
+{% endblock %}
+{% block navbar %}
+{% include 'panel/includes/navbar.html' %}
+{% endblock %}
+{% block content %}
 <form method="POST" action="{% url 'services_update' service.id %}">
     {% csrf_token %}
     {{ form }}
     <button>Update</button>
 </form>
+{% endblock %}
+

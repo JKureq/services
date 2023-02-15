@@ -4,8 +4,9 @@ from .forms import ProductForm, IngredientForm, ServiceForm
 from django.views.generic import ListView
 from .models import Ingredient, Product, Service
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
+
 # Create your views here.
 
 def index(request):
@@ -25,6 +26,7 @@ class IngredientsView(ListView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
     context_object_name = 'ingredients'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,6 +57,7 @@ class ProductsView(ListView):
     template_name = 'panel/products.html'
     model = Product
     context_object_name = 'products'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,6 +84,7 @@ class ServicesView(ListView):
     template_name = 'panel/services.html'
     model = Service
     context_object_name = 'services'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

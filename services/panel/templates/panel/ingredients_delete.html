@@ -1,5 +1,18 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Delete ingredient
+{% endblock %}
+{% block navbar %}
+{% include 'panel/includes/navbar.html' %}
+{% endblock %}
+{% block content %}
 <form method="POST" action="{% url 'ingredients_delete' ingredient.id %}">
     {% csrf_token %}
-    {{ form }}
+    <p>Do you want to delete?</p>
+    {{ ingredient.name }}
     <button>Delete</button>
 </form>
+{% endblock %}
+
