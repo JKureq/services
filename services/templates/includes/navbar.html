@@ -1,4 +1,6 @@
 <ul>
     <li><a href="{% url 'index' %}">Main page</a></li>
+    {% if user.is_authenticated %}
     <li><a href="{% url 'panel' %}">Panel</a></li>
+    {% endif %}
 </ul>

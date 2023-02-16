@@ -1,20 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% load socialaccount %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
-    <div>  
-    {% if user.is_authenticated %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Register
+{% endblock %}
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
     <p>You are logged in as {{ user.username }}</p>
     {% else %}
     <form method="POST">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <input type="submit" name="Create User">
     </form>
     <a href="{% provider_login_url 'google'%}?next=/">Register With Google</a>
@@ -24,10 +25,6 @@
     </div>
     {% endif %}
     </div> 
-    
-    <footer>
-        <a href="{% url 'index' %}">Go back to main page</a>
-    </footer>
-    
-</body>
-</html>
+{% endblock %}
+
+

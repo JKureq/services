@@ -1,14 +1,15 @@
+{% extends 'base.html' %}
 {% load socialaccount %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Login
+{% endblock %}
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
         <p>You are logged in as {{ user.username }} </p>
         <a href="{% url 'index' %}">Go back to main page</a>
         {% else %}
@@ -36,12 +37,6 @@
             <div>
                 <p>If u dont have account register <a href="{% url 'register' %}">here</a></p>
             </div>
-        <footer>
-            <a href="{% url 'index' %}">Go back to main page</a>
-        </footer>
     {% endif %}
-    
-    
-    
-</body>
-</html>
+{% endblock %}
+

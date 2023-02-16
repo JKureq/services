@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block styles %}
 {% endblock %}
 {% block title %}
 Your services
 {% endblock %}
 {% block navbar %}
-{% include 'panel/includes/navbar.html' %}
+{% include 'includes/navbar.html' %}
 {% endblock %}
 {% block content %}
 <h1>Your services</h1>
@@ -52,7 +53,7 @@ Your services
 
 <form method="POST" action="services/add">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <button>Add</button>
 </form>
 {% endblock %}

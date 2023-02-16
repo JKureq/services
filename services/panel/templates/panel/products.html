@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block styles %}
 {% endblock %}
 {% block title %}
 Your products
 {% endblock %}
 {% block navbar %}
-{% include 'panel/includes/navbar.html' %}
+{% include 'includes/navbar.html' %}
 {% endblock %}
 {% block content %}
 <h1>Your products</h1>
@@ -55,7 +56,7 @@ Your products
 
 <form method="POST" action="{% url 'products_add' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <button>Add</button>
 </form>
 
