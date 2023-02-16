@@ -36,7 +36,7 @@ class IngredientsView(ListView):
 class IngredientsAddView(CreateView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
-    fields = '__all__'
+    form_class = IngredientForm
     success_url = reverse_lazy('ingredients')
 
 class IngredientsDeleteView(DeleteView):
@@ -108,3 +108,5 @@ class ServicesUpdateView(UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('services')
     template_name = 'panel/services_update.html'
+
+
