@@ -10,7 +10,7 @@ Your ingredients
 {% endblock %}
 {% block content %}
 <h1>Your ingredients</h1>
-{% for ingredient in ingredients %}
+{% for ingredient in user.ingredients.all %}
 <p>{{ ingredient.name }}</p>
 <button><a href="{% url 'ingredients_delete' ingredient.id %}">Delete</a></button>  
 <button><a href="{% url 'ingredients_update' ingredient.id %}">Update</a></button>  
@@ -39,5 +39,6 @@ Your ingredients
     {{ form|crispy }}
     <button>Add</button>
 </form>
+
 {% endblock %}
 
