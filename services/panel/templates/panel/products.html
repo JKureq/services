@@ -19,7 +19,7 @@ Your products
         <th>Delete</th>
         <th>Update</th>
     </tr>     
-{% for product in products %}
+{% for product in user.products.all %}
 <tr>
     <td>{{ product.name }}</td>
     <td>{{ product.price }}</td>
