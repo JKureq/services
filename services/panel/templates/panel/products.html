@@ -19,7 +19,7 @@ Your products
         <th>Delete</th>
         <th>Update</th>
     </tr>     
-{% for product in products %}
+{% for product in user.products.all %}
 <tr>
     <td>{{ product.name }}</td>
     <td>{{ product.price }}</td>
@@ -56,7 +56,15 @@ Your products
 
 <form method="POST" action="{% url 'products_add' %}">
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form.name.label }}
+    {{ form.name }}
+    {{ form.price.label }}
+    {{ form.price }}
+    {{ form.duration.label }}
+    {{ form.duration }}
+    {{ form.ingredients.label }}
+    {{ form.ingredients }}
+    <input type="hidden" name="user" value="{{ user.id }}">
     <button>Add</button>
 </form>
 

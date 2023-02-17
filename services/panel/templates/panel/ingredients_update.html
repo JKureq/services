@@ -10,7 +10,11 @@ Update ingredient
 {% block content %}
 <form method="POST" action="{% url 'ingredients_update' ingredient.id %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form.name.label }}
+    {{ form.name }}
+    {{ form.category.label }}
+    {{ form.category }}
+    <input type="hidden" name="user" value="{{ user.id }}">
     <button>Update</button>
 </form>
 {% endblock %}

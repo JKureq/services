@@ -4,7 +4,7 @@ from .models import Product, Ingredient, Service
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = ['name', 'category']
+        fields = '__all__'
 
 class ProductForm(forms.ModelForm):
     class Meta:
