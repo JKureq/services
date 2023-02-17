@@ -3,17 +3,16 @@
 {% block styles %}
 {% endblock %}
 {% block title %}
-Your ingredients
+Ingredients category
 {% endblock %}
 {% block navbar %}
 {% include 'includes/navbar.html' %}
 {% endblock %}
 {% block content %}
 <h1>Your ingredients</h1>
-{% for ingredient in user.ingredients.all %}
-<p>{{ ingredient.name }}</p>
-<button><a href="{% url 'ingredients_delete' ingredient.id %}">Delete</a></button>  
-<button><a href="{% url 'ingredients_update' ingredient.id %}">Update</a></button>  
+{% for category in user.categories.ingredients.all %}
+<p><a href="{% url 'ingredients' category %}">{{ category.name }}</a></p>
+
 {% endfor %}
 
 <div class="pagination">
@@ -34,13 +33,11 @@ Your ingredients
     </span>
 </div>
 
-<form method="POST" action="{% url 'ingredients_add' %}">
+<form method="POST" action="{% url 'categories_add' %}">
     {% csrf_token %}
     {{ form.name.label }}
     {{ form.name }}
-    {{ form.category.label }}
-    {{ form.category }}
-    <input type="hidden" name="user" value="{{ user.id }}">
+    <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
 </form>
 

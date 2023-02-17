@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block styles %}
+{% endblock %}
+{% block title %}
+Ingredients category
+{% endblock %}
+{% block navbar %}
+{% include 'includes/navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>Select category of ingredients</h1>
+{% for category in user.categories.all %}
+<p><a href="{% url 'ingredients' category %}">{{ category.name }}</a></p>
+{% endfor %}
+
+<form method="POST" action="{% url 'categories_add' %}">
+    {% csrf_token %}
+    {{ form.name.label }}
+    {{ form.name }}
+    <input type="hidden", name="user", value="{{ user.id }}">
+    <button>Add</button>
+    {{ form.name.errors }}
+</form>
+
+{% endblock %}

@@ -1,5 +1,10 @@
 from django import forms
-from .models import Product, Ingredient, Service
+from .models import Product, Ingredient, Service, Category
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = '__all__'
 
 class IngredientForm(forms.ModelForm):
     class Meta:

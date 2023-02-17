@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from .forms import ProductForm, IngredientForm, ServiceForm
+from .forms import ProductForm, IngredientForm, ServiceForm, CategoryForm
 from django.views.generic import ListView
-from .models import Ingredient, Product, Service
+from .models import Ingredient, Product, Service, Category
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
@@ -22,12 +22,31 @@ def panel(request):
         'form': form,
     })
 
+
+class CategoriesView(ListView):
+    template_name = 'panel/categories.html'
+    model = Category
+    context_object_name = 'categories'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CategoryForm()
+        return context
+
+
+class CategoriesAddView(CreateView):
+    template_name = 'panel/categories.html'
+    model = Category
+    fields = '__all__'
+    success_url = reverse_lazy('categories')
+
+
 class IngredientsView(ListView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
     context_object_name = 'ingredients'
     paginate_by = 10
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = IngredientForm()
@@ -51,7 +70,7 @@ class IngredientsUpdateView(UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('ingredients')
     template_name = 'panel/ingredients_update.html'
-    
+
 
 class ProductsView(ListView):
     template_name = 'panel/products.html'
