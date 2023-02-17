@@ -10,7 +10,13 @@ Update service
 {% block content %}
 <form method="POST" action="{% url 'services_update' service.id %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form.name.label }}
+    {{ form.name }}
+    {{ form.date.label }}
+    {{ form.date }}
+    {{ form.product.label }}
+    {{ form.product }}
+    <input type="hidden" name="user" value="{{ user.id }}">
     <button>Update</button>
 </form>
 {% endblock %}

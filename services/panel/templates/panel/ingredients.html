@@ -36,7 +36,9 @@ Your ingredients
 
 <form method="POST" action="{% url 'ingredients_add' %}">
     {% csrf_token %}
+    {{ form.name.label }}
     {{ form.name }}
+    {{ form.category.label }}
     {{ form.category }}
     <input type="hidden" name="user" value="{{ user.id }}">
     <button>Add</button>
