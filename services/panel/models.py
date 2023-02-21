@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Item(models.Model):
+    name = models.CharField(max_length=100, unique=True, blank= False)
+    price = models.IntegerField(blank=False)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='items', null=False, blank=False)
+    
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=False)
@@ -10,7 +19,7 @@ class Category(models.Model):
         User, on_delete=models.CASCADE, related_name='categories', null=False, blank=False)
     
     def __str__(self):
-        return f'{self.name}'
+       return f'{self.name}'
 
 
 class Ingredient(models.Model):

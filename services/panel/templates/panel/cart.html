@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block styles %}
 {% endblock %}
 {% block title %}
-Ingredients category
+Cart
 {% endblock %}
 {% block navbar %}
 {% include 'includes/navbar.html' %}
 {% endblock %}
 {% block content %}
-<h1>Select category of ingredients</h1>
-{% for category in user.categories.all %}
-<p><a href="{% url 'ingredients' category %}">{{ category }}</a></p>
+{% for item in cart %}
+<p>{{ item.name }} - {{ item.price }} </p>
 {% endfor %}
-
-<form method="POST" action="{% url 'categories_add' %}">
+<form method="POST" action="{% url 'cart_add' %}">
     {% csrf_token %}
     {{ form.name.label }}
     {{ form.name }}
+    {{ form.price.label }}
+    {{ form.price }}
     <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
     {{ form.name.errors }}
+    {{ form.price.errors }}
 </form>
-
 {% endblock %}

@@ -10,11 +10,11 @@ Ingredients category
 {% endblock %}
 {% block content %}
 <h1>Your ingredients</h1>
-{% for category in user.categories.ingredients.all %}
-<p><a href="{% url 'ingredients' category %}">{{ category.name }}</a></p>
-
+{% for ingredient in ingredients %}
+{% if ingredient.category|stringformat:"s" == cat %}
+<p>{{ ingredient.name }}</p>
+{% endif %}
 {% endfor %}
-
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -33,10 +33,11 @@ Ingredients category
     </span>
 </div>
 
-<form method="POST" action="{% url 'categories_add' %}">
+<form method="POST" action="{% url 'ingredients_add' ingredient.category %}">
     {% csrf_token %}
     {{ form.name.label }}
     {{ form.name }}
+    <input type="hidden", name="category", value="{{ cat }}">
     <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
 </form>

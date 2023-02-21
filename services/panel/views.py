@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib.auth import login, logout, authenticate
-from .forms import ProductForm, IngredientForm, ServiceForm, CategoryForm
+from .forms import ProductForm, IngredientForm, ServiceForm, CategoryForm, CartForm
 from django.views.generic import ListView
-from .models import Ingredient, Product, Service, Category
+from .models import Ingredient, Product, Service, Category, Item
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 
 # Create your views here.
+
 
 def index(request):
     if request.method == 'POST':
@@ -21,6 +22,23 @@ def panel(request):
     return render(request, 'panel/panel.html', {
         'form': form,
     })
+
+class CartView(ListView):
+    template_name = 'panel/cart.html'
+    model = Item
+    context_object_name = 'cart'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CartForm()
+        return context
+    
+
+class CartAddView(CreateView):
+    template_name = 'panel/cart.html'
+    model = Item
+    fields = '__all__'
+    success_url = reverse_lazy('cart')
 
 
 class CategoriesView(ListView):
@@ -46,10 +64,11 @@ class IngredientsView(ListView):
     model = Ingredient
     context_object_name = 'ingredients'
     paginate_by = 10
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = IngredientForm()
+        context['cat'] = str(self.kwargs['category'])
         return context
     
 class IngredientsAddView(CreateView):

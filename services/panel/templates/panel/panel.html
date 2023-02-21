@@ -9,6 +9,7 @@ Panel
 {% endblock %}
 {% block content %}
 <h1>This is your panel.</h1>
+<button><a href="{% url 'cart' %}">Cart</a></button>
 <button><a href="{% url 'categories' %}">Ingredients</a></button>
 <button><a href="{% url 'products' %}">Products</a></button>
 <button><a href="{% url 'services' %}">Services</a></button>
