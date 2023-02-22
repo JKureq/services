@@ -32,15 +32,15 @@ Ingredients category
         {% endif %}
     </span>
 </div>
-
-<form method="POST" action="{% url 'ingredients_add' ingredient.category %}">
+{{ cat.id  }}
+<form method="POST" action="{% url 'ingredients_add' view.kwargs.category %}">
     {% csrf_token %}
     {{ form.name.label }}
-    {{ form.name }}
-    <input type="hidden", name="category", value="{{ cat }}">
+    {{ form.name }} 
+    {{ form.category.errors }}
+    <input type="hidden", name="category", value="{{ view.kwargs.category }}">
     <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
 </form>
 
 {% endblock %}
-

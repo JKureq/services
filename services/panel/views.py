@@ -70,12 +70,14 @@ class IngredientsView(ListView):
         context['form'] = IngredientForm()
         context['cat'] = str(self.kwargs['category'])
         return context
+
     
 class IngredientsAddView(CreateView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
     form_class = IngredientForm
     success_url = reverse_lazy('ingredients')
+
 
 class IngredientsDeleteView(DeleteView):
     model = Ingredient

@@ -16,6 +16,10 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = '__all__'
+        widgets = {
+            'category': forms.HiddenInput(),
+            'user': forms.HiddenInput()
+        }
 
 class ProductForm(forms.ModelForm):
     class Meta:
