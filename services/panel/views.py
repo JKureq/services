@@ -97,22 +97,17 @@ class IngredientsAddView(CreateView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
     form_class = IngredientForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('ingredients')
+
+    def get_success_url(self):
+        cat = Category.objects.get(name=self.kwargs.get('category'))
+        return reverse_lazy('ingredients', kwargs={'category': cat.name})
 
 
 
 class IngredientsDeleteView(DeleteView):
     model = Ingredient
-    fields = '__all__'
-    success_url = reverse_lazy('ingredients')
-    template_name = 'panel/ingredients_delete.html'
-
-
-class IngredientsUpdateView(UpdateView):
-    model = Ingredient
-    fields = '__all__'
-    success_url = reverse_lazy('ingredients')
-    template_name = 'panel/ingredients_update.html'
+    success_url = reverse_lazy('index')
 
 
 class ProductsView(ListView):

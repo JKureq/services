@@ -10,7 +10,7 @@ Cart
 {% block content %}
 {% for item in cart %}
 <p>{{ item.name }} - {{ item.price }} </p>
-<form method="POST"action="{% url 'cart_delete' item.id %}">
+<form method="POST" action="{% url 'cart_delete' item.id %}">
     {% csrf_token %}
     <button>Delete</button>
 </form>

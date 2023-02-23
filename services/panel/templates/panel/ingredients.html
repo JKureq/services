@@ -11,7 +11,16 @@ Ingredients category
 {% block content %}
 <h1>Your ingredients</h1>
 {% for ingredient in ingredients %}
-<p>{{ ingredient.name }}</p>
+<div>
+    <p>{{ ingredient.name }}</p>
+    <form method="POST" action="{% url 'ingredients_delete' ingredient.id %}">
+        {% csrf_token %}
+        <button>
+            Delete
+        </button>
+    </form>
+</div>
+
 {% endfor %}
 <div class="pagination">
     <span class="step-links">
