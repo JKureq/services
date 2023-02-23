@@ -10,7 +10,7 @@ Ingredients category
 {% endblock %}
 {% block content %}
 <h1>Select category of ingredients</h1>
-{% for category in user.categories.all %}
+{% for category in categories %}
 <p><a href="{% url 'ingredients' category %}">{{ category }}</a></p>
 {% endfor %}
 

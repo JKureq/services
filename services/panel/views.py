@@ -28,6 +28,11 @@ class CartView(ListView):
     model = Item
     context_object_name = 'cart'
 
+    def get_queryset(self):
+        user_id = self.request.user.id
+        items = Item.objects.filter(user=user_id)
+        return items
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CartForm()
@@ -40,11 +45,21 @@ class CartAddView(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('cart')
 
+class CartDeleteView(DeleteView):
+    model = Item
+    success_url = reverse_lazy('cart')
+
+
 
 class CategoriesView(ListView):
     template_name = 'panel/categories.html'
     model = Category
     context_object_name = 'categories'
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        categories = Category.objects.filter(user=user_id)
+        return categories
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,11 +79,17 @@ class IngredientsView(ListView):
     model = Ingredient
     context_object_name = 'ingredients'
     paginate_by = 10
+    
+    def get_queryset(self, *args, **kwargs):
+        cat = Category.objects.get(name=self.kwargs.get('category'))
+        return Ingredient.objects.filter(category=cat.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = IngredientForm()
-        context['cat'] = str(self.kwargs['category'])
+        cat = Category.objects.get(name=self.kwargs.get('category'))
+        category = cat.pk
+        context['category'] = category
         return context
 
     
@@ -76,7 +97,8 @@ class IngredientsAddView(CreateView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
     form_class = IngredientForm
-    success_url = reverse_lazy('ingredients')
+    success_url = reverse_lazy('index')
+
 
 
 class IngredientsDeleteView(DeleteView):
@@ -98,6 +120,12 @@ class ProductsView(ListView):
     model = Product
     context_object_name = 'products'
     paginate_by = 10
+
+    
+    def get_queryset(self):
+        user_id = self.request.user.id
+        products = Product.objects.filter(user=user_id)
+        return products
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,6 +153,11 @@ class ServicesView(ListView):
     model = Service
     context_object_name = 'services'
     paginate_by = 10
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        services = Service.objects.filter(user=user_id)
+        return services
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

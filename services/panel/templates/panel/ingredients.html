@@ -11,9 +11,7 @@ Ingredients category
 {% block content %}
 <h1>Your ingredients</h1>
 {% for ingredient in ingredients %}
-{% if ingredient.category|stringformat:"s" == cat %}
 <p>{{ ingredient.name }}</p>
-{% endif %}
 {% endfor %}
 <div class="pagination">
     <span class="step-links">
@@ -32,13 +30,12 @@ Ingredients category
         {% endif %}
     </span>
 </div>
-{{ cat.id  }}
 <form method="POST" action="{% url 'ingredients_add' view.kwargs.category %}">
     {% csrf_token %}
     {{ form.name.label }}
     {{ form.name }} 
     {{ form.category.errors }}
-    <input type="hidden", name="category", value="{{ view.kwargs.category }}">
+    <input type="hidden", name="category", value="{{ category }}">
     <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
 </form>
