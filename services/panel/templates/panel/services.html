@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block styles %}
 {% endblock %}
 {% block title %}
@@ -51,7 +50,7 @@ Your services
     </span>
 </div>
 
-<form method="POST" action="services/add">
+<form method="POST" action="services/add" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.name.label }}
     {{ form.name }}
@@ -59,6 +58,8 @@ Your services
     {{ form.date }}
     {{ form.product.label }}
     {{ form.product }}
+    {{ form.files.label }}
+    {{ form.files }}
     <input type="hidden" name="user" value="{{ user.id }}">
     <button>Add</button>
 </form>

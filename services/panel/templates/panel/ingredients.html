@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block styles %}
 {% endblock %}
 {% block title %}
@@ -13,7 +12,7 @@ Ingredients category
 {% for ingredient in ingredients %}
 <div>
     <p>{{ ingredient.name }}</p>
-    <form method="POST" action="{% url 'ingredients_delete' ingredient.id %}">
+    <form method="POST" action="{% url 'ingredients_delete' category.name ingredient.id %}">
         {% csrf_token %}
         <button>
             Delete
@@ -44,9 +43,16 @@ Ingredients category
     {{ form.name.label }}
     {{ form.name }} 
     {{ form.category.errors }}
-    <input type="hidden", name="category", value="{{ category }}">
+    <input type="hidden", name="category", value="{{ category.id }}">
     <input type="hidden", name="user", value="{{ user.id }}">
     <button>Add</button>
 </form>
 
+<div>
+    <form method="POST" action="{% url 'categories_delete' category.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="pk" value="{{ category }}">
+        <button>Delete category</button>
+    </form>
+</div>
 {% endblock %}

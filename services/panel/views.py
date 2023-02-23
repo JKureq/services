@@ -74,6 +74,10 @@ class CategoriesAddView(CreateView):
     success_url = reverse_lazy('categories')
 
 
+class CategoriesDeleteView(DeleteView):
+    model = Category
+    success_url = reverse_lazy('categories')
+
 class IngredientsView(ListView):
     template_name = 'panel/ingredients.html'
     model = Ingredient
@@ -87,8 +91,7 @@ class IngredientsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = IngredientForm()
-        cat = Category.objects.get(name=self.kwargs.get('category'))
-        category = cat.pk
+        category = Category.objects.get(name=self.kwargs.get('category'))
         context['category'] = category
         return context
 
@@ -109,6 +112,9 @@ class IngredientsDeleteView(DeleteView):
     model = Ingredient
     success_url = reverse_lazy('index')
 
+    def get_success_url(self):
+        cat = self.object.category
+        return reverse_lazy('ingredients', kwargs={'category': cat})
 
 class ProductsView(ListView):
     template_name = 'panel/products.html'
