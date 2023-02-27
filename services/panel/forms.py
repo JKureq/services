@@ -26,10 +26,13 @@ class ProductForm(forms.ModelForm):
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = '__all__'
-        widgets = {
+        witgets = {
             'date': DateInput()
         }
+
+

@@ -167,10 +167,28 @@ class ServicesView(ListView):
 
 class ServicesAddView(CreateView):
     model = Service
-    fields = '__all__'
     success_url = reverse_lazy('services')
+    form_class = ServiceForm
+    template_name = 'panel/services.html'
     
+    def get_form_kwargs(self):
+        req = super().get_form_kwargs()
+        print(req)
+        return req
+    
+    def post(self, request, *args, **kwargs):
+        req = request.POST['name']
+        print(req)
+        images = request.FILES.getlist('images')
+        print(args)
+        #if images:
+            #for image in images:
+                #img = Image.objects.create(
+                    #service=aegra,
+                    #image=image,
+                #)
 
+        return super().post(request, *args, **kwargs)
 
 class ServicesDeleteView(DeleteView):
     model = Service

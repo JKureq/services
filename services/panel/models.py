@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from multifilefield.fields import MultiFileField
+from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 
@@ -54,4 +54,9 @@ class Service(models.Model):
         Product, on_delete=models.SET_NULL, null=True, related_name='services')
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='services', null=False, blank=False)
-    #files = MultiFileField(upload_to='uploads/')
+
+
+class Image(models.Model):
+    service = models.ForeignKey(
+        Service, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='uploads/')
