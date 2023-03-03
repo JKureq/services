@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os 
 
-
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = load_dotenv()
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -156,8 +156,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '982113603341-3vsab1p8elu0mrl7avcvq60kf8onuuu4.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': os.getenv("client_id"),
+            'secret': os.getenv("secret"),
             'key': ''
         }
     }
