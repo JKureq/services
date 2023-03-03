@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Ingredient, Service, Category, Item
+from .models import Product, Ingredient, Service, Category, Item, Image
 
 
 class CartForm(forms.ModelForm):
@@ -34,5 +34,6 @@ class ServiceForm(forms.ModelForm):
         witgets = {
             'date': DateInput()
         }
+
 
 

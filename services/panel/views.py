@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib.auth import login, logout, authenticate
 from .forms import ProductForm, IngredientForm, ServiceForm, CategoryForm, CartForm
 from django.views.generic import ListView
-from .models import Ingredient, Product, Service, Category, Item
+from .models import Ingredient, Product, Service, Category, Item, Image
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
@@ -165,30 +165,21 @@ class ServicesView(ListView):
         context['form'] = ServiceForm()
         return context
 
+
+
 class ServicesAddView(CreateView):
     model = Service
-    success_url = reverse_lazy('services')
     form_class = ServiceForm
     template_name = 'panel/services.html'
-    
-    def get_form_kwargs(self):
-        req = super().get_form_kwargs()
-        print(req)
-        return req
-    
-    def post(self, request, *args, **kwargs):
-        req = request.POST['name']
-        print(req)
-        images = request.FILES.getlist('images')
-        print(args)
-        #if images:
-            #for image in images:
-                #img = Image.objects.create(
-                    #service=aegra,
-                    #image=image,
-                #)
+    success_url = reverse_lazy('services')
 
-        return super().post(request, *args, **kwargs)
+    def form_valid(self, form):
+        form.instance.save()
+        img = self.request.FILES['images']
+        service = form.save()
+        image = Image(service=service, image=img)
+        image.save()
+        return super().form_valid(form)
 
 class ServicesDeleteView(DeleteView):
     model = Service
@@ -200,5 +191,3 @@ class ServicesUpdateView(UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('services')
     template_name = 'panel/services_update.html'
-
-
